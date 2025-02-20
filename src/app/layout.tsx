@@ -12,10 +12,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR">
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-        <body>{children}</body>
-      </ThemeProvider>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
