@@ -10,7 +10,7 @@ const Home = () => {
   const page = Number(searchParams.get('pagina')) || 1
   const limit = Number(searchParams.get('quantidade')) || 10
 
-  const { data, isFetching, isError, status } = useQuery({
+  const { data, isFetching, isError } = useQuery({
     queryKey: ['people', page, limit],
     queryFn: async () => getPeople({ page, limit }),
   })
