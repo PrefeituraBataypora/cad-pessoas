@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <QueryProvider>
-        <body className="p-2">
+        <body className="!p-2">
           <Navbar />
           {children}
         </body>
