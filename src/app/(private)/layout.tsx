@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import '../globals.css'
 import { Navbar } from '@/components/navbar'
+import { QueryProvider } from '@/providers/query'
 
 export const metadata: Metadata = {
   title: 'Cadastro de Clientes',
@@ -13,10 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className="p-2">
-        <Navbar />
-        {children}
-      </body>
+      <QueryProvider>
+        <body className="p-2">
+          <Navbar />
+          {children}
+        </body>
+      </QueryProvider>
     </html>
   )
 }
