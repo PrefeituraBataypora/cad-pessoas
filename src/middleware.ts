@@ -3,8 +3,8 @@ import {
   type NextRequest,
   NextResponse,
 } from 'next/server'
-import jwt from 'jsonwebtoken'
 import { env } from '@/lib/env'
+import { jwtVerify } from 'jose'
 
 const publicRoutes = [
   { path: '/login', whenAuthenticated: 'redirect' },
@@ -13,10 +13,10 @@ const publicRoutes = [
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED = '/login'
 
-export const middleware = (request: NextRequest) => {
+export const middleware = async (request: NextRequest) => {
   const path = request.nextUrl.pathname
   const publicRoute = publicRoutes.find(route => route.path === path)
-  const authToken = request.cookies.get('token')
+  const authToken = request.cookies.get('token')?.value as string
 
   if (!authToken && publicRoute) {
     return NextResponse.next()
@@ -42,19 +42,25 @@ export const middleware = (request: NextRequest) => {
     return NextResponse.redirect(redirectUrl)
   }
 
-  const validToken = jwt.verify(authToken as unknown as string, env.JWT_SECRET)
+  try {
+    const secret = new TextEncoder().encode(env.JWT_SECRET)
 
-  if (!validToken) {
-    request.cookies.set({ name: 'token', value: '' })
+    await jwtVerify(authToken, secret)
+
+    console.log('Token válido ✅')
+
+    return NextResponse.next()
+  } catch (error) {
+    console.error('Token inválido ❌', error)
 
     const redirectUrl = request.nextUrl.clone()
-
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED
 
-    return NextResponse.redirect(redirectUrl)
-  }
+    const response = NextResponse.redirect(redirectUrl)
+    response.headers.set('Set-Cookie', 'token=; Path=/; HttpOnly; Max-Age=0')
 
-  return NextResponse.next()
+    return response
+  }
 }
 
 export const config: MiddlewareConfig = {
