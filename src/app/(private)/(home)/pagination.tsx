@@ -66,6 +66,7 @@ const Pagination = ({ count, total }: PaginationProps) => {
         Quantidade de registros por página:
         <Select
           defaultValue="15"
+          value={JSON.stringify(quantidade)}
           onValueChange={value => {
             const params = new URLSearchParams(searchParams.toString())
             params.set('quantidade', value)
