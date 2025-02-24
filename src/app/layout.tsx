@@ -4,7 +4,7 @@ import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
-  title: 'Cadastro de Clientes',
+  title: 'Cadastro de Pessoas',
 }
 
 export default function RootLayout({
