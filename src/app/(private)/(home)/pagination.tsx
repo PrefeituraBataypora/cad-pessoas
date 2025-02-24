@@ -70,6 +70,7 @@ const Pagination = ({ count, total }: PaginationProps) => {
             const params = new URLSearchParams(searchParams.toString())
             params.set('quantidade', value)
             setQuantidade(Number(value))
+            setPagina(1)
             router.push(`?${params.toString()}`)
           }}
         >
