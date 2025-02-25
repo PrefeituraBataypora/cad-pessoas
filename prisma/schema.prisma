@@ -27,19 +27,19 @@ enum Gender {
 }
 
 model Person {
-  id           String   @id @default(uuid())
-  codCadastro  String   @unique
+  id           String    @id @default(uuid())
+  codCadastro  String    @unique
   name         String
-  cpf          String   @unique
-  rg           String   @unique
-  issuer       String
-  ufId         String
-  birthDate    DateTime
-  gender       Gender
-  phone        String
-  street       String
-  number       String
-  neighborhood String
+  cpf          String?   @unique
+  rg           String?   @unique
+  issuer       String?
+  ufId         String?
+  birthDate    DateTime?
+  gender       Gender?
+  phone        String?
+  street       String?
+  number       String?
+  neighborhood String?
   userId       String?
 
   createdAt DateTime @default(now())
