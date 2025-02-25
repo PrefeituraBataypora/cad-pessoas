@@ -41,7 +41,8 @@ const createPersonSchema = z.object({
     .refine(value => !value || CPF.isValid(value), {
       message: 'CPF inválido',
     })
-    .transform(value => (value === '' ? null : value)),
+    // @ts-ignore
+    .transform(value => (value === '' ? null : CPF.format(value))),
   rg: z
     .string()
     .optional()
