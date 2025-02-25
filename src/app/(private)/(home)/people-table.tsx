@@ -13,6 +13,7 @@ import { Pagination } from './pagination'
 import { Button } from '@/components/ui/button'
 import { Pen, Plus } from 'lucide-react'
 import { DeletePerson } from './delete-person'
+import { PersonDetails } from './person-details'
 
 interface PeopleTableProps {
   people: Person[]
@@ -39,15 +40,13 @@ const PeopleTable = ({ people, count }: PeopleTableProps) => {
               <TableRow key={person.id}>
                 <TableCell>{person.codCadastro}</TableCell>
                 <TableCell className="truncate">{person.name}</TableCell>
-                <TableCell>{person.cpf}</TableCell>
-                <TableCell>{person.phone}</TableCell>
+                <TableCell>{person.cpf ? person.cpf : '-'}</TableCell>
+                <TableCell>{person.phone ? person.phone : '-'}</TableCell>
                 <TableCell>
-                  {dayjs(person.birthDate).format('DD/MM/YYYY')}
+                  {person.birthDate ? dayjs(person.birthDate).format('DD/MM/YYYY') : '-'}
                 </TableCell>
                 <TableCell className="flex items-center gap-2">
-                  <Button size="icon" title="Ver mais">
-                    <Plus />
-                  </Button>
+                  <PersonDetails person={person} />
                   <Button variant="secondary" size="icon" title="Editar">
                     <Pen />
                   </Button>
