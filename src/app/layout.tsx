@@ -15,6 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <link rel="icon" href="/cras.jpg" />
       <body className="!p-2">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <UserStoreProvider>
