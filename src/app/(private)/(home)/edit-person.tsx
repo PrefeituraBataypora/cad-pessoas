@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Select,
   SelectContent,
@@ -154,129 +155,137 @@ const EditPerson = ({ person }: EditPersonProps) => {
         <DialogHeader>
           <DialogTitle>Adicionar Pessoa</DialogTitle>
         </DialogHeader>
-        <form className="space-y-2" onSubmit={handleSubmit(handleEditPerson)}>
-          <div className="flex flex-col gap-2">
-            <Label>Cód. Cadastro</Label>
-            <Input {...register('codCadastro')} />
-            {errors.codCadastro && (
-              <span className="text-xs text-red-500">
-                {errors.codCadastro.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Nome</Label>
-            <Input {...register('name')} />
-            {errors.name && (
-              <span className="text-xs text-red-500">
-                {errors.name.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>CPF</Label>
-            <Input {...register('cpf')} />
-            {errors.cpf && (
-              <span className="text-xs text-red-500">{errors.cpf.message}</span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>RG</Label>
-            <Input {...register('rg')} />
-            {errors.rg && (
-              <span className="text-xs text-red-500">{errors.rg.message}</span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Emissor</Label>
-            <Input {...register('issuer')} />
-            {errors.issuer && (
-              <span className="text-xs text-red-500">
-                {errors.issuer.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>UF ID</Label>
-            <Input {...register('ufId')} />
-            {errors.ufId && (
-              <span className="text-xs text-red-500">
-                {errors.ufId.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Data de Nascimento</Label>
-            <Input type="date" {...register('birthDate')} />
-            {errors.birthDate && (
-              <span className="text-xs text-red-500">
-                {errors.birthDate.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Gênero</Label>
-            <Controller
-              control={control}
-              name="gender"
-              render={({ field: { onChange, value } }) => (
-                <Select
-                  onValueChange={onChange}
-                  // @ts-ignore
-                  value={value}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione um gênero" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="MALE">Masculino</SelectItem>
-                    <SelectItem value="FEMALE">Feminino</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            {errors.gender && (
-              <span className="text-xs text-red-500">
-                {errors.gender.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Telefone</Label>
-            <Input type="tel" {...register('phone')} />
-            {errors.phone && (
-              <span className="text-xs text-red-500">
-                {errors.phone.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Rua</Label>
-            <Input {...register('street')} />
-            {errors.street && (
-              <span className="text-xs text-red-500">
-                {errors.street.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Número</Label>
-            <Input type="number" {...register('number')} />
-            {errors.number && (
-              <span className="text-xs text-red-500">
-                {errors.number.message}
-              </span>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Bairro</Label>
-            <Input {...register('neighborhood')} />
-            {errors.neighborhood && (
-              <span className="text-xs text-red-500">
-                {errors.neighborhood.message}
-              </span>
-            )}
-          </div>
+        <form className="max-h-[calc(100vh-8rem)]" onSubmit={handleSubmit(handleEditPerson)}>
+          <ScrollArea>
+            <div className="space-y-2 px-1">
+              <div className="flex flex-col gap-2">
+                <Label>Cód. Cadastro</Label>
+                <Input {...register('codCadastro')} />
+                {errors.codCadastro && (
+                  <span className="text-xs text-red-500">
+                    {errors.codCadastro.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Nome</Label>
+                <Input {...register('name')} />
+                {errors.name && (
+                  <span className="text-xs text-red-500">
+                    {errors.name.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>CPF</Label>
+                <Input {...register('cpf')} />
+                {errors.cpf && (
+                  <span className="text-xs text-red-500">
+                    {errors.cpf.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>RG</Label>
+                <Input {...register('rg')} />
+                {errors.rg && (
+                  <span className="text-xs text-red-500">
+                    {errors.rg.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Emissor</Label>
+                <Input {...register('issuer')} />
+                {errors.issuer && (
+                  <span className="text-xs text-red-500">
+                    {errors.issuer.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>UF ID</Label>
+                <Input {...register('ufId')} />
+                {errors.ufId && (
+                  <span className="text-xs text-red-500">
+                    {errors.ufId.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Data de Nascimento</Label>
+                <Input type="date" {...register('birthDate')} />
+                {errors.birthDate && (
+                  <span className="text-xs text-red-500">
+                    {errors.birthDate.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Gênero</Label>
+                <Controller
+                  control={control}
+                  name="gender"
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      onValueChange={onChange}
+                      // @ts-ignore
+                      value={value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um gênero" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="MALE">Masculino</SelectItem>
+                        <SelectItem value="FEMALE">Feminino</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.gender && (
+                  <span className="text-xs text-red-500">
+                    {errors.gender.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Telefone</Label>
+                <Input type="tel" {...register('phone')} />
+                {errors.phone && (
+                  <span className="text-xs text-red-500">
+                    {errors.phone.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Rua</Label>
+                <Input {...register('street')} />
+                {errors.street && (
+                  <span className="text-xs text-red-500">
+                    {errors.street.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Número</Label>
+                <Input type="number" {...register('number')} />
+                {errors.number && (
+                  <span className="text-xs text-red-500">
+                    {errors.number.message}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Bairro</Label>
+                <Input {...register('neighborhood')} />
+                {errors.neighborhood && (
+                  <span className="text-xs text-red-500">
+                    {errors.neighborhood.message}
+                  </span>
+                )}
+              </div>
+            </div>
+          </ScrollArea>
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="secondary" disabled={isSubmitting}>
