@@ -9,10 +9,11 @@ const Home = () => {
   const searchParams = useSearchParams()
   const page = Number(searchParams.get('pagina')) || 1
   const limit = Number(searchParams.get('quantidade')) || 10
+  const name = searchParams.get('nome') || undefined
 
   const { data, isFetching, isError } = useQuery({
-    queryKey: ['people', page, limit],
-    queryFn: async () => getPeople({ page, limit }),
+    queryKey: ['people', page, limit, name],
+    queryFn: async () => getPeople({ page, limit, name }),
   })
 
   if (isFetching) {
