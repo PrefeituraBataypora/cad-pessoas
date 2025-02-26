@@ -142,7 +142,7 @@ const CreatePerson = () => {
           onSubmit={handleSubmit(handleCreatePerson)}
         >
           <ScrollArea className="h-[calc(100%-2rem)]">
-            <div className="space-y-2 pl-1 pb-1">
+            <div className="space-y-2 px-1 pb-1">
               <div className="flex flex-col gap-2">
                 <Label>Cód. Cadastro</Label>
                 <Input {...register('codCadastro')} />

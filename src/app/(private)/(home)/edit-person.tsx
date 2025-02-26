@@ -126,22 +126,21 @@ const EditPerson = ({ person }: EditPersonProps) => {
   const handleEditPerson = async (data: EditPersonInput) => {
     setIsSubmitting(true)
 
-    try {
-      const newData = {
-        ...{ id: person.id },
-        ...data,
-      }
-      await editPerson(newData)
+    const newData = {
+      ...{ id: person.id },
+      ...data,
+    }
+    const { success, error } = await editPerson(newData)
+
+    setIsSubmitting(false)
+
+    if (success) {
       toast.success('Cadastro atualizado com sucesso')
       queryClient.invalidateQueries({ queryKey: ['people'] })
       reset()
-      setIsOpen(false)
-    } catch (error) {
-      toast.error('Erro ao atualizar cadastro')
-      console.error(error)
-    } finally {
-      setIsSubmitting(false)
+      return setIsOpen(false)
     }
+    toast.error(`Erro ao atualizar cadastro ${error}`)
   }
 
   return (
@@ -155,8 +154,11 @@ const EditPerson = ({ person }: EditPersonProps) => {
         <DialogHeader>
           <DialogTitle>Editar {person.name}</DialogTitle>
         </DialogHeader>
-        <form className="max-h-[calc(100vh-8rem)]" onSubmit={handleSubmit(handleEditPerson)}>
-        <ScrollArea className="h-[calc(100%-2rem)]">
+        <form
+          className="max-h-[calc(100vh-8rem)]"
+          onSubmit={handleSubmit(handleEditPerson)}
+        >
+          <ScrollArea className="h-[calc(100%-2rem)]">
             <div className="space-y-2 pl-1 pb-1">
               <div className="flex flex-col gap-2">
                 <Label>Cód. Cadastro</Label>

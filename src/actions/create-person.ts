@@ -57,13 +57,13 @@ const createPerson = async (data: CreatePersonInput) => {
       where: {
         OR: [
           {
-            codCadastro: parsedData.codCadastro,
+            codCadastro: parsedData.codCadastro ?? '',
           },
           {
-            cpf: parsedData.cpf,
+            cpf: parsedData.cpf ?? '',
           },
           {
-            rg: parsedData.rg,
+            rg: parsedData.rg ?? '',
           },
         ],
       },
