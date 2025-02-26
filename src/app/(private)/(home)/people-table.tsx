@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Pen, Plus } from 'lucide-react'
 import { DeletePerson } from './delete-person'
 import { PersonDetails } from './person-details'
+import { EditPerson } from './edit-person'
 
 interface PeopleTableProps {
   people: Person[]
@@ -47,9 +48,7 @@ const PeopleTable = ({ people, count }: PeopleTableProps) => {
                 </TableCell>
                 <TableCell className="flex items-center gap-2">
                   <PersonDetails person={person} />
-                  <Button variant="secondary" size="icon" title="Editar">
-                    <Pen />
-                  </Button>
+                  <EditPerson person={person} />
                   <DeletePerson id={person.id} name={person.name} />
                 </TableCell>
               </TableRow>
