@@ -22,13 +22,13 @@ const login = async (data: LoginProps) => {
   })
 
   if (!user) {
-    throw new Error('Usuário não encontrado')
+    return { error: 'Usuário não encontrado', success: false }
   }
 
   const isValidPassword = await bcrypt.compare(password, user.password)
 
   if (!isValidPassword) {
-    throw new Error('Senha inválida')
+    return { error: 'Senha inválida', success: false }
   }
 
   const token = jwt.sign({ userId: user.id }, env.JWT_SECRET, {
@@ -41,7 +41,7 @@ const login = async (data: LoginProps) => {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   })
 
-  return true
+  return { success: true }
 }
 
 export { login }

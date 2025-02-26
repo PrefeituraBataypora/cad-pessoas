@@ -1,4 +1,4 @@
-"use server"
+'use server'
 
 import { prisma } from '@/lib/prisma'
 import CPF from 'cpf'
@@ -54,6 +54,29 @@ const editPerson = async (data: EditPersonInput) => {
   try {
     const parsedData = editPersonSchema.parse(data)
 
+    const infoPersonExists = await prisma.person.findFirst({
+      where: {
+        NOT: {
+          id: parsedData.id,
+        },
+        OR: [
+          {
+            codCadastro: parsedData.codCadastro,
+          },
+          {
+            cpf: parsedData.cpf,
+          },
+          {
+            rg: parsedData.rg,
+          },
+        ],
+      },
+    })
+
+    if (infoPersonExists) {
+      return { error: 'Cód Cadastro/CPF/RG já cadastrado', success: false }
+    }
+
     await prisma.person.update({
       where: {
         id: parsedData.id,
@@ -75,11 +98,11 @@ const editPerson = async (data: EditPersonInput) => {
       },
     })
 
-    return true
+    return { success: true }
     // biome-ignore lint: error type
   } catch (error: any) {
     console.log(error.message)
-    throw new Error(error)
+    return { error: error.message, success: false }
   }
 }
 

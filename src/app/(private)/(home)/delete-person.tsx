@@ -30,19 +30,18 @@ const DeletePerson = ({ id, name }: DeletePersonProps) => {
   const removePerson = async () => {
     setIsDeleting(true)
 
-    try {
-      await deletePerson({ id })
+    const { success, error } = await deletePerson({ id })
+    setIsDeleting(false)
+
+    if (success) {
       queryClient.invalidateQueries({
         queryKey: ['people'],
       })
       toast.success('Pessoa excluída com sucesso!')
-      setIsOpen(false)
-    } catch (error) {
-      console.error(error)
-      toast.error('Erro ao excluir pessoa!')
-    } finally {
-      setIsDeleting(false)
+      return setIsOpen(false)
     }
+
+    toast.error(`Erro ao excluir pessoa: ${error}`)
   }
 
   return (

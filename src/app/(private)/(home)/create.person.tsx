@@ -107,22 +107,22 @@ const CreatePerson = () => {
   const handleCreatePerson = async (data: CreatePersonInput) => {
     setIsSubmitting(true)
 
-    try {
-      const newData = {
-        ...data,
-        ...(user ? { userId: user.id } : {}),
-      }
-      await createPerson(newData)
+    const newData = {
+      ...data,
+      ...(user ? { userId: user.id } : {}),
+    }
+    const { success, error } = await createPerson(newData)
+
+    setIsSubmitting(false)
+
+    if (success) {
       toast.success('Pessoa criada com sucesso')
       queryClient.invalidateQueries({ queryKey: ['people'] })
       reset()
-      setIsOpen(false)
-    } catch (error) {
-      toast.error('Erro ao criar pessoa')
-      console.error(error)
-    } finally {
-      setIsSubmitting(false)
+      return setIsOpen(false)
     }
+
+    toast.error(`Erro ao criar pessoa: ${error}`)
   }
 
   return (
@@ -137,9 +137,12 @@ const CreatePerson = () => {
         <DialogHeader>
           <DialogTitle>Adicionar Pessoa</DialogTitle>
         </DialogHeader>
-        <form className="max-h-[calc(100vh-8rem)]" onSubmit={handleSubmit(handleCreatePerson)}>
-          <ScrollArea className="h-fit">
-            <div className='space-y-2 px-1'>
+        <form
+          className="max-h-[calc(100vh-8rem)]"
+          onSubmit={handleSubmit(handleCreatePerson)}
+        >
+          <ScrollArea className="h-[calc(100%-2rem)]">
+            <div className="space-y-2 pl-1 pb-1">
               <div className="flex flex-col gap-2">
                 <Label>Cód. Cadastro</Label>
                 <Input {...register('codCadastro')} />

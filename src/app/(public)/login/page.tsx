@@ -29,14 +29,14 @@ const LoginPage = () => {
   })
 
   const onSubmit = async (data: LoginProps) => {
-    await login(data)
-      .then(() => {
-        toast.success('Login realizado com sucesso')
-        push('/')
-      })
-      .catch(error => {
-        toast.error(`Erro ao realizar login: ${error.message}`)
-      })
+    const { error, success } = await login(data)
+
+    if (success) {
+      toast.success('Login realizado com sucesso')
+      return push('/')
+    }
+
+    toast.error(`Erro ao realizar login: ${error}`)
   }
 
   return (
@@ -49,7 +49,9 @@ const LoginPage = () => {
         <div className="space-y-1">
           <Label>E-mail</Label>
           <Input type="email" {...register('email')} />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
         </div>
         <div className="space-y-1">
           <Label>Senha</Label>

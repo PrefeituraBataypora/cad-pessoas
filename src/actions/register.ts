@@ -23,13 +23,13 @@ const register = async (data: RegisterProps) => {
   })
 
   if (isUserRegistered) {
-    throw new Error('Usuário já registrado')
+    return { error: 'Usuário já registrado', success: false }
   }
 
   const salts = await bcrypt.genSalt(env.ENCRYPT_SALT)
   const hashedPassword = await bcrypt.hash(password, salts)
 
-  const user = await prisma.user.create({
+  await prisma.user.create({
     data: {
       email,
       name,
@@ -37,7 +37,7 @@ const register = async (data: RegisterProps) => {
     },
   })
 
-  return user
+  return { success: true }
 }
 
 export { register }

@@ -153,11 +153,11 @@ const EditPerson = ({ person }: EditPersonProps) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Adicionar Pessoa</DialogTitle>
+          <DialogTitle>Editar {person.name}</DialogTitle>
         </DialogHeader>
         <form className="max-h-[calc(100vh-8rem)]" onSubmit={handleSubmit(handleEditPerson)}>
-          <ScrollArea>
-            <div className="space-y-2 px-1">
+        <ScrollArea className="h-[calc(100%-2rem)]">
+            <div className="space-y-2 pl-1 pb-1">
               <div className="flex flex-col gap-2">
                 <Label>Cód. Cadastro</Label>
                 <Input {...register('codCadastro')} />

@@ -14,10 +14,10 @@ const deletePerson = async ({ id }: DeletePersonProps) => {
       },
     })
 
-  } 
-  // biome-ignore lint: error type
-  catch (error: any) {
-    throw new Error(error)
+    return { success: true }
+    // biome-ignore lint: error type
+  } catch (error: any) {
+    return { success: false, error: error.message }
   }
 }
 

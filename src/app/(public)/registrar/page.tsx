@@ -30,14 +30,14 @@ const RegisterPage = () => {
   })
 
   const onSubmit = async ({ email, name, password }: RegisterProps) => {
-    await registerUser({ email, name, password })
-      .then(() => {
-        toast.success('Registrado com sucesso')
-        push('/login')
-      })
-      .catch(error => {
-        toast.error('Erro ao registrar')
-      })
+    const { success, error } = await registerUser({ email, name, password })
+
+    if (success) {
+      toast.success('Usuário registrado com sucesso')
+      return push('/login')
+    }
+
+    toast.error(`Erro ao registrar usuário: ${error}`)
   }
 
   return (

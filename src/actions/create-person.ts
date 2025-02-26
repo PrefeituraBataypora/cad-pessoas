@@ -53,6 +53,26 @@ const createPerson = async (data: CreatePersonInput) => {
   try {
     const parsedData = createPersonSchema.parse(data)
 
+    const personExists = await prisma.person.findFirst({
+      where: {
+        OR: [
+          {
+            codCadastro: parsedData.codCadastro,
+          },
+          {
+            cpf: parsedData.cpf,
+          },
+          {
+            rg: parsedData.rg,
+          },
+        ],
+      },
+    })
+
+    if (personExists) {
+      return { error: 'Cód Cadastro/CPF/RG já cadastrado', success: false }
+    }
+
     await prisma.person.create({
       data: {
         codCadastro: parsedData.codCadastro,
@@ -71,11 +91,11 @@ const createPerson = async (data: CreatePersonInput) => {
       },
     })
 
-    return true
+    return { success: true }
     // biome-ignore lint: error type
   } catch (error: any) {
     console.log(error.message)
-    throw new Error(error)
+    return { error: error.message, success: false }
   }
 }
 
