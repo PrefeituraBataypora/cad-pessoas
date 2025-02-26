@@ -11,7 +11,7 @@ const Home = () => {
   const limit = Number(searchParams.get('quantidade')) || 10
   const name = searchParams.get('nome') || undefined
 
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError, error } = useQuery({
     queryKey: ['people', page, limit, name],
     queryFn: async () => getPeople({ page, limit, name }),
   })
@@ -20,6 +20,14 @@ const Home = () => {
     return (
       <div className="w-full h-[calc(100vh-5rem)] flex items-center justify-center">
         Carregando...
+      </div>
+    )
+  }
+
+  if (error?.message === 'No people found') {
+    return (
+      <div className="w-full h-[calc(100vh-5rem)] flex items-center justify-center">
+        Nenhuma pessoa encontrada
       </div>
     )
   }
