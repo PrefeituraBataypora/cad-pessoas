@@ -28,10 +28,6 @@ const getPeople = async ({
       throw new Error('No people found')
     }
 
-    if (people.length === 0) {
-      throw new Error('No people found')
-    }
-
     if (name) {
       const peopleFiltered = people.filter(person => person.name.includes(name))
 

@@ -24,18 +24,18 @@ const Home = () => {
     )
   }
 
-  if (error?.message === 'No people found') {
-    return (
-      <div className="w-full h-[calc(100vh-5rem)] flex items-center justify-center">
-        Nenhuma pessoa encontrada
-      </div>
-    )
-  }
-
   if (isError || !data) {
     return (
       <div className="w-full h-[calc(100vh-5rem)] flex items-center justify-center">
         Ocorreu um erro ao carregar os dados
+      </div>
+    )
+  }
+
+  if (data.people.length === 0) {
+    return (
+      <div className="w-full h-[calc(100vh-5rem)] flex items-center justify-center">
+        Nenhuma pessoa encontrada
       </div>
     )
   }
