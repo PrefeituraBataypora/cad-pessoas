@@ -29,7 +29,9 @@ const getPeople = async ({
     }
 
     if (name) {
-      const peopleFiltered = people.filter(person => person.name.includes(name))
+      const peopleFiltered = people.filter(person =>
+        person.name.toLowerCase().includes(name.toLowerCase())
+      )
 
       return { people: peopleFiltered, total: peopleFiltered.length }
     }
