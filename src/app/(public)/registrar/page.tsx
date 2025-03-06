@@ -3,12 +3,14 @@
 import { register as registerUser } from '@/actions/register'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+// import { Brand } from '../brand'
+// import Logo from "../logo.jpg" // path to the image
 
 const registerSchema = z.object({
   email: z.string().email('E-mail inválido'),
@@ -46,6 +48,7 @@ const RegisterPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-2 border rounded-md max-w-xl w-full mx-auto p-4"
       >
+        {/* <Brand image={Logo} name="alt name" />  */}
         <p className="font-medium text-2xl">Registro</p>
         <div className="space-y-1">
           <Label>Nome</Label>

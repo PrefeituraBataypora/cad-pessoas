@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
+// import { Brand } from '../brand'
+// import Logo from "../logo.jpg" // path to the image
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -45,6 +47,7 @@ const LoginPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-2 border rounded-md max-w-xl w-full mx-auto p-4"
       >
+        {/* <Brand image={Logo} name="alt name" />  */}
         <p className="font-medium text-2xl">Login</p>
         <div className="space-y-1">
           <Label>E-mail</Label>
