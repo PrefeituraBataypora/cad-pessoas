@@ -15,6 +15,13 @@ const getPeople = async ({
 }: GetPeopleProps) => {
   try {
     const people = await prisma.person.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: "insensitive"
+        }
+      },
+
       orderBy: {
         createdAt: 'desc',
       },
@@ -26,14 +33,6 @@ const getPeople = async ({
 
     if (!people) {
       throw new Error('No people found')
-    }
-
-    if (name) {
-      const peopleFiltered = people.filter(person =>
-        person.name.toLowerCase().includes(name.toLowerCase())
-      )
-
-      return { people: peopleFiltered, total: peopleFiltered.length }
     }
 
     return { people, total }
