@@ -18,18 +18,24 @@ const getPeople = async ({
       where: {
         name: {
           contains: name,
-          mode: "insensitive"
+          mode: 'insensitive'
         }
       },
-
       orderBy: {
-        createdAt: 'desc',
+        name: 'asc',
       },
       skip: (page - 1) * limit,
       take: limit,
     })
 
-    const total = await prisma.person.count()
+    const total = await prisma.person.count({
+      where: {
+        name: {
+          contains: name,
+          mode: 'insensitive'
+        }
+      }
+    })
 
     if (!people) {
       throw new Error('No people found')
