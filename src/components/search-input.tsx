@@ -14,6 +14,8 @@ const SearchInput = () => {
     e.preventDefault()
     const params = new URLSearchParams(searchParams.toString())
 
+    params.set('page', '1')
+
     if (search.length > 0) {
       params.set('nome', search)
     } else {
